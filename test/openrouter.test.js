@@ -16,7 +16,7 @@ describe.skipIf(!clientExists)("OpenRouter SDK client", () => {
     const client = createOpenRouterClient({ apiKey: "test_key", fetch: fetchSpy })
 
     await client.chat.completions.create({
-      model: "openai/gpt-oss-120b:free",
+      model: "openrouter/free",
       messages: [{ role: "user", content: "Hello" }]
     })
 
