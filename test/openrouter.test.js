@@ -12,13 +12,8 @@ describe.skipIf(!clientExists)("OpenRouter SDK client", () => {
   it("uses the OpenRouter base URL and server key", async () => {
     process.env.OPENROUTER_API_KEY = "test_key"
     const fetchSpy = vi.fn().mockResolvedValue(jsonResponse(providerResponse()))
-    const OpenAI = (await import("openai")).default
-    const client = new OpenAI({
-      baseURL: "https://openrouter.ai/api/v1",
-      apiKey: process.env.OPENROUTER_API_KEY,
-      maxRetries: 0,
-      fetch: fetchSpy
-    })
+    const { createOpenRouterClient } = await import("../src/lib/openrouter.js")
+    const client = createOpenRouterClient({ apiKey: "test_key", fetch: fetchSpy })
 
     await client.chat.completions.create({
       model: "openai/gpt-oss-120b:free",
